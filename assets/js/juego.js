@@ -15,6 +15,7 @@ let puntosComputadora = 0;
 //Referencias del HTML
 const btnPedir = document.querySelector('#btn-pedir');
 const btnDetener = document.querySelector('#btn-detener');
+const btnNuevoJuego = document.querySelector('#btn-nuevo');
 const puntajeHTML = document.querySelectorAll('small');
 const cartasJugador = document.querySelector('#jugador-cartas')
 const cartasComputadora = document.querySelector('#computadora-cartas')
@@ -52,7 +53,7 @@ const pedirCarta = () => {
 
 // TURNO DE LA COMPUTADORA 
 const turnoComputadora = (puntosMinimos) => {
-    
+
     do {
         const carta = pedirCarta();
 
@@ -69,6 +70,16 @@ const turnoComputadora = (puntosMinimos) => {
         }
 
     } while ((puntosComputadora < puntosMinimos) && (puntosMinimos <= 21));
+
+    if (puntosMinimos > 21 ) {
+        alert('Ganó la computadora')
+    } else if(puntosMinimos === puntosComputadora) {
+        alert('Nadie Gano');
+    } else if((puntosComputadora > 21) ) {
+        alert('Ganaste');
+    } else {
+        alert('Computadora Gana');
+    }
 };
 
 
@@ -89,6 +100,7 @@ const valorCarta = (carta) => {
     
 }
 
+
 //Eventos
 btnPedir.addEventListener('click', () => {
     const carta = pedirCarta();
@@ -101,7 +113,7 @@ btnPedir.addEventListener('click', () => {
     cartasJugador.append(imgCarta);
 
     if (puntosJugador > 21) {
-        console.log('Perdiste pa');
+        // console.log('Perdiste pa');
         btnPedir.disabled = true;
         btnDetener.disabled = true;
         turnoComputadora(puntosJugador);
@@ -119,4 +131,23 @@ btnDetener.addEventListener('click', () => {
     turnoComputadora(puntosJugador);
 });
 
+btnNuevoJuego.addEventListener('click', () => {
+    deck = [];
+    crearDeck();
+    btnPedir.disabled = false;
+    btnDetener.disabled = false;
+    puntosComputadora = 0;
+    puntosJugador = 0;
+    puntajeHTML[0].innerText = puntosJugador;
+    puntajeHTML[1].innerText = puntosComputadora;
+    cartasComputadora.innerHTML = '';
+    cartasJugador.innerHTML = '';
+    
+    
+    
+    // cartasComputadora.removeChild(cartasJugador.length);
+    console.log(deck);
+    
+
+});
 
